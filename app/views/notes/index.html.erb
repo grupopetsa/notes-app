@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<div class="row">
+  <%= form_for :filters, html: { class: 'input-field col s12' }, method: 'get' do |f| %>
+    <%= material_icon.search.css_class('prefix') %>
+    <%= f.text_field :title, autofocus: true, placeholder: 'Search by title', value: params.dig(:filters, :title) %>
+  <% end %>
+
+  <% @notes.each do |note| %>
+    <%= link_to note_path(note) do %>
+      <div class="col s12">
+        <div class="card">
+          <div class="card-content black-text">
+            <span class="card-title">
+              <%= note.title %>
+              <span class="right" style="font-size: 50%">
+                <%= format_as_localtime note.created_at %>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<div class="fixed-action-btn">
+  <%= link_to new_note_path, title: 'New note', class: 'btn-floating btn-large pulse' do %>
+    <%= material_icon.add %>
+  <% end %>
+</div>
